@@ -1297,7 +1297,7 @@ def job():
             },
             {
                 "type": "section",
-                "text": {"type": "mrkdwn", "text": "`" + df_combined_str[:2900].replace("\n", " ") + "`"},
+                "text": {"type": "mrkdwn", "text": "`" + df_combined_str + "`"},
             },
             {
                 "type": "section",
@@ -1305,7 +1305,7 @@ def job():
             },
             {
                 "type": "section",
-                "text": {"type": "mrkdwn", "text": "`" + df_sum_str[:2900].replace("\n", " ") + "`"},
+                "text": {"type": "mrkdwn", "text": "`" + df_sum_str + "`"},
             },
             {
                 "type": "section",
@@ -1313,7 +1313,7 @@ def job():
             },
             {
                 "type": "section",
-                "text": {"type": "mrkdwn", "text": "`" + df_hairpin_origin_str[:2900].replace("\n", " ") + "`"},
+                "text": {"type": "mrkdwn", "text": "`" + df_hairpin_origin_str + "`"},
             },
             {"type": "divider"},
         ]
