@@ -1,0 +1,8 @@
+pandas
+requests
+slack_sdk
+schedule
+databricks
+matplotlib
+pyspark
+databricks-sql-connector
