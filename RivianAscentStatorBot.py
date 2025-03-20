@@ -1392,6 +1392,9 @@ def job():
         print(f"Slack API Error: {response.status_code} - {response.text}")
     else:
         print("Message successfully sent to Slack")
+        
+    print("Slack Payload:", json.dumps(payload, indent=2))
+
 
 
 
