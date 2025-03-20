@@ -197,7 +197,7 @@ def job():
         AND line_name = 'STTR01'
         AND STATION_NAME = '100'
         AND overall_process_status = 'NOK'
-        AND recorded_at > '{recorded_at}
+        AND recorded_at > '{recorded_at}'
         -- AND (
         --     ((PARAMETER_NAME = 'AmbientTemperature Value' AND (parameter_value_num < 0 OR parameter_value_num > 50)) AND (work_location_id = 01 or work_location_id = 02)) OR
         --     ((PARAMETER_NAME = 'Area Waveform UV Value' AND (parameter_value_num < -3 OR parameter_value_num > 3)) AND (work_location_id = 02)) OR
