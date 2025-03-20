@@ -1287,19 +1287,17 @@ def job():
     ########################################################################################
     payload = {
         "blocks": [
-            {"type": "divider"},  # Add a divider to separate sections clearly
+            {"type": "divider"},
             {
                 "type": "section",
                 "text": {
-                    "type": "mrkdwn", "text": "*🚨Fail count by Parameter:* "
-                    + recorded_at
-                    + " to "
-                    + (one_hour_before + timedelta(hours=1)).strftime("%H:00"),
+                    "type": "mrkdwn", 
+                    "text": f"*🚨Fail count by Parameter:* {recorded_at} to {(one_hour_before + timedelta(hours=1)).strftime('%H:00')}"
                 },
             },
             {
                 "type": "section",
-                "text": {"type": "mrkdwn", "text": "```" + df_combined_str + "```"},
+                "text": {"type": "mrkdwn", "text": "`" + df_combined_str[:2900].replace("\n", " ") + "`"},
             },
             {
                 "type": "section",
@@ -1307,7 +1305,7 @@ def job():
             },
             {
                 "type": "section",
-                "text": {"type": "mrkdwn", "text": "```" + df_sum_str + "```"},
+                "text": {"type": "mrkdwn", "text": "`" + df_sum_str[:2900].replace("\n", " ") + "`"},
             },
             {
                 "type": "section",
@@ -1315,14 +1313,12 @@ def job():
             },
             {
                 "type": "section",
-                "text": {
-                    "type": "mrkdwn",
-                    "text": "```" + df_hairpin_origin_str + "```",
-                },
+                "text": {"type": "mrkdwn", "text": "`" + df_hairpin_origin_str[:2900].replace("\n", " ") + "`"},
             },
-            {"type": "divider"},  # Add a divider to separate sections clearly
+            {"type": "divider"},
         ]
     }
+
 
     if (15 <= current_hour < 16) or (5 <= current_hour < 6):
         payload["blocks"].extend(
