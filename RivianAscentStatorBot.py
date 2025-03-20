@@ -77,7 +77,7 @@ def job():
     current_hour = local_now.hour
     current_time = local_now.strftime("%Y-%m-%d %H:00")
 
-    one_hour_before = datetime.now() - timedelta(hours=500)
+    one_hour_before = datetime.now() - timedelta(hours=1)
     recorded_at = one_hour_before.strftime("%Y-%m-%d %H:00")
     eight_hours_before = datetime.now() - timedelta(hours=8)
     recorded_at_summary = eight_hours_before.strftime("%Y-%m-%d %H:00")
