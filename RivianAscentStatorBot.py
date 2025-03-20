@@ -1388,6 +1388,11 @@ def job():
     print(f"SLACK_WEBHOOK_URL Loaded: {url is not None}")
 
     response = requests.post(url, headers=headers, data=json.dumps(payload))
+    if response.status_code != 200:
+        print(f"Slack API Error: {response.status_code} - {response.text}")
+    else:
+        print("Message successfully sent to Slack")
+
 
 
 ########################################################################################
