@@ -1,0 +1,44 @@
+name: Run RivianAscentStatorBot
+
+on:
+  schedule:
+    # Runs at 15 minutes past the hour every hour
+    - cron: '10 * * * *'  
+
+  workflow_dispatch:  # Allows manual execution
+
+jobs:
+  run-script:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+
+      # Caching Python dependencies
+      - name: Cache Python dependencies
+        uses: actions/cache@v3
+        with:
+          path: ~/.cache/pip
+          key: ${{ runner.os }}-pip-${{ hashFiles('requirements.txt') }}
+          restore-keys: |
+            ${{ runner.os }}-pip-
+
+      - name: Install dependencies if not cached
+        run: |
+          pip install --upgrade pip
+          pip install --cache-dir ~/.cache/pip -r requirements.txt
+
+      - name: Set timezone
+        run: sudo timedatectl set-timezone America/Chicago
+
+      - name: Run the script
+        env:
+          DATABRICKS_ACCESS_TOKEN: ${{ secrets.DATABRICKS_ACCESS_TOKEN }}
+          SLACK_TOKEN: ${{ secrets.SLACK_TOKEN }}
+          URL: ${{ secrets.URL }}
+        run: python RivianAscentStatorBot.py
