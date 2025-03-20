@@ -21,7 +21,6 @@ from databricks import sql
 DATABRICKS_SERVER_HOSTNAME = "rivian-prod-us-west-2.cloud.databricks.com"
 DATABRICKS_HTTP_PATH = "/sql/1.0/warehouses/b050a7573faba9ab"
 DATABRICKS_ACCESS_TOKEN = os.getenv("DATABRICKS_ACCESS_TOKEN")
-# DATABRICKS_ACCESS_TOKEN = "dapi0eb9a92a05ca6d1eb0a444b125490361"
 
 slack_token = os.getenv("SLACK_TOKEN")
 url = os.getenv("URL")
