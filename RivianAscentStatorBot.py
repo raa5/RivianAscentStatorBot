@@ -1313,7 +1313,7 @@ def job():
             },
             {
                 "type": "section",
-                "text": {"type": "mrkdwn", "text": "`" + df_combined_str + "`",},
+                "text": {"type": "mrkdwn", "text": "```" + df_combined_str + "```",},
             },
             {
                 "type": "section",
@@ -1329,7 +1329,7 @@ def job():
             },
             {
                 "type": "section",
-                "text": {"type": "mrkdwn", "text": "`" + df_hairpin_origin_str + "`",},
+                "text": {"type": "mrkdwn", "text": "```" + df_hairpin_origin_str + "```",},
             },
             {"type": "divider"},
         ]
