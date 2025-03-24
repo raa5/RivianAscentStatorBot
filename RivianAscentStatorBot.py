@@ -189,7 +189,7 @@ def job():
             (PARAMETER_NAME = 'Value X Connection Element 1' AND (parameter_value_raw < -5.10 OR parameter_value_raw > -3.9)) OR
             (PARAMETER_NAME = 'Value X Connection Element 2' AND (parameter_value_raw < -6.30 OR parameter_value_raw > -5.6)) OR
             (PARAMETER_NAME = 'Value Y Connection Element 1' AND (parameter_value_raw < -23.85 OR parameter_value_raw > -22.95)) OR
-            (PARAMETER_NAME = 'Value Y Connection Element 2' AND (parameter_value_raw < -94.95 OR parameter_value_raw > -94.05)) OR
+            (PARAMETER_NAME = 'Value Y Connection Element 2' AND (parameter_value_raw < -94.95 OR parameter_value_raw > -94.05)) 
         )
         GROUP BY STATION_NAME, PARAMETER_NAME
         ORDER BY COUNT DESC
@@ -707,7 +707,7 @@ def job():
                 (PARAMETER_NAME = 'Value X Connection Element 1' AND (parameter_value_raw < -5.1 OR parameter_value_raw > -3.9)) OR
                 (PARAMETER_NAME = 'Value Y Connection Element 1' AND (parameter_value_raw < -23.85 OR parameter_value_raw > -22.95)) OR
                 (PARAMETER_NAME = 'Value X Connection Element 2' AND (parameter_value_raw < -6.3 OR parameter_value_raw > -5.6)) OR
-                (PARAMETER_NAME = 'Value Y Connection Element 2' AND (parameter_value_raw < -94.95 OR parameter_value_raw > -94.05)) OR               
+                (PARAMETER_NAME = 'Value Y Connection Element 2' AND (parameter_value_raw < -94.95 OR parameter_value_raw > -94.05))             
             )
             GROUP BY STATION_NAME, PARAMETER_NAME
             ORDER BY COUNT DESC
