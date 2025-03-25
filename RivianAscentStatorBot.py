@@ -104,7 +104,7 @@ def job():
     FROM manufacturing.spinal.fct_spinal_parameter_records
     WHERE shop_name = 'DU03'
     AND line_name ilike '%STTR%'
-    AND STATION_NAME = '040'
+    AND STATION_NAME ilike '%40%'
     AND PARAMETER_NAME = 'Force process value'
     AND parameter_id = 2
     AND overall_process_status = 'NOK'
@@ -312,7 +312,7 @@ def job():
         where 
             shop_name = 'DU03'
             and line_name = 'STTR01'
-            and station_name like '030%'
+            and station_name like '%30%'
             and parameter_name = 'Nest'
         ),
 
@@ -341,9 +341,9 @@ def job():
         where
             shop_name = 'DU03'
             and line_name = 'STTR01'
-            and station_name like '030%'
+            and station_name like '%30%'
             and parameter_name ilike '%batch%'
-            -- and parameter_value_raw ilike '%PT00237846-C%' 
+            -- and parameter_value_raw ilike '%PT00649019-C%' 
         ),
 
     op_forty as
@@ -383,7 +383,7 @@ def job():
         on NPR.product_serial = WS.product_serial
 
     WHERE
-        opf.station_name ILIKE '%040%'
+        opf.station_name ILIKE '%40%'
         and opf.overall_process_status = 'NOK'
         and opf.recorded_at > '{recorded_at}'
         and opf.parameter_id = 2
@@ -797,7 +797,7 @@ def job():
             where 
                 shop_name = 'DU03'
                 and line_name = 'STTR01'
-                and station_name like '030%'
+                and station_name ilike '%30%'
                 and parameter_name = 'Nest'
             ),
 
@@ -826,9 +826,9 @@ def job():
             where
                 shop_name = 'DU03'
                 and line_name = 'STTR01'
-                and station_name like '030%'
+                and station_name like '%30%'
                 and parameter_name ilike '%batch%'
-                -- and parameter_value_raw ilike '%PT00237846-C%' 
+                -- and parameter_value_raw ilike '%PT00649019-C%'
             ),
 
         op_forty as
@@ -868,7 +868,7 @@ def job():
             on NPR.product_serial = WS.product_serial
 
         WHERE
-            opf.station_name ILIKE '%040%'
+            opf.station_name ILIKE '%40%'
             and opf.overall_process_status = 'NOK'
             and opf.recorded_at > '{recorded_at_summary}'
             and opf.parameter_id = 2
