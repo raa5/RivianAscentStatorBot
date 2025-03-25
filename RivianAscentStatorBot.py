@@ -363,10 +363,10 @@ def job():
         -- SS.scanned_child_serial as Stack_Serial,
         -- WS.parameter_value_raw as Copper_Wire_Spool,
         -- -- NPR.product_serial as Nest_Product_Serial,
-        count(*) AS COUNT,
+        count(distinct GH.product_serial) AS COUNT,
         opf.station_name as STATION_NAME,
         NPR.station_name as Sttr_030_Hairpin_Origin
-        -- GH.product_serial as Stator_Assembly_Serial_Number,
+        -- GH.product_serial as Stator_Assembly_Serial_Number
         -- opf.result_status as Sttr_040_Result_Status,
         -- opf.recorded_at as Sttr_040_Recorded_At_Central_Time,
         -- substring (WS.parameter_value_raw, position('C' in ws.parameter_value_raw) + 1, 8) as Copper_Wire_8_Digit
@@ -789,91 +789,91 @@ def job():
         query_40_hairpin_origin_summary = f"""
         with
 
-        nest_parameter_records as 
-            (
-            select product_serial, station_name, parameter_name, parameter_value_raw, overall_process_status, recorded_at, parameter_id, overall_process_status
-            -- from manufacturing.mes.fct_parameter_records
-            from manufacturing.spinal.fct_spinal_parameter_records
-            where 
-                shop_name = 'DU03'
-                and line_name = 'STTR01'
-                and station_name ilike '%30%'
-                and parameter_name = 'Nest'
-            ),
+            nest_parameter_records as 
+                (
+                select product_serial, station_name, parameter_name, parameter_value_raw, overall_process_status, recorded_at, parameter_id, overall_process_status
+                -- from manufacturing.mes.fct_parameter_records
+                from manufacturing.spinal.fct_spinal_parameter_records
+                where 
+                    shop_name = 'DU03'
+                    and line_name = 'STTR01'
+                    and station_name like '%30%'
+                    and parameter_name = 'Nest'
+                ),
 
-        genealogy_hist as 
-            (
-            select product_serial, scanned_child_serial, consumed_at, product_part_desc, child_part_desc, scanned_child_data
-            from manufacturing.mes.fct_genealogy_hist
-            where
-                shop_name = 'DU03'
-                and line_name = 'STTR01'
-            ),
+            genealogy_hist as 
+                (
+                select product_serial, scanned_child_serial, consumed_at, product_part_desc, child_part_desc, scanned_child_data
+                from manufacturing.mes.fct_genealogy_hist
+                where
+                    shop_name = 'DU03'
+                    and line_name = 'STTR01'
+                ),
 
-        stack_serial as 
-            (
-            select scanned_child_serial, product_serial
-            from manufacturing.mes.fct_genealogy_hist
-            where line_name = 'STTR01'
-            -- and scanned_child_part in ('PT00237854-C') 
-            ),
+            stack_serial as 
+                (
+                select scanned_child_serial, product_serial
+                from manufacturing.mes.fct_genealogy_hist
+                where line_name = 'STTR01'
+                -- and scanned_child_part in ('PT00237854-C') 
+                ),
 
-        wire_spool as 
-            (
-            select product_serial, product_part, parameter_name, parameter_value_raw, recorded_at
-            -- from manufacturing.mes.fct_parameter_records
-            from manufacturing.spinal.fct_spinal_parameter_records
-            where
-                shop_name = 'DU03'
-                and line_name = 'STTR01'
-                and station_name like '%30%'
-                and parameter_name ilike '%batch%'
-                -- and parameter_value_raw ilike '%PT00649019-C%'
-            ),
+            wire_spool as 
+                (
+                select product_serial, product_part, parameter_name, parameter_value_raw, recorded_at
+                -- from manufacturing.mes.fct_parameter_records
+                from manufacturing.spinal.fct_spinal_parameter_records
+                where
+                    shop_name = 'DU03'
+                    and line_name = 'STTR01'
+                    and station_name like '%30%'
+                    and parameter_name ilike '%batch%'
+                    -- and parameter_value_raw ilike '%PT00649019-C%' 
+                ),
 
-        op_forty as
-            (
-            select product_serial, station_name, recorded_at, result_status, parameter_id, overall_process_status, parameter_name
-            -- from manufacturing.mes.fct_parameter_records
-            from manufacturing.spinal.fct_spinal_parameter_records
-            where
-                line_name = 'STTR01'
-                and station_name ilike '%40%'
-                and overall_process_status = 'NOK'
-                and parameter_name = 'Force process value'
+            op_forty as
+                (
+                select product_serial, station_name, recorded_at, result_status, parameter_id, overall_process_status, parameter_name
+                -- from manufacturing.mes.fct_parameter_records
+                from manufacturing.spinal.fct_spinal_parameter_records
+                where
+                    line_name = 'STTR01'
+                    and station_name ilike '%40%'
+                    and overall_process_status = 'NOK'
+                    and parameter_name = 'Force process value'
 
-            )
+                )
 
-        select distinct
-            -- SS.scanned_child_serial as Stack_Serial,
-            -- WS.parameter_value_raw as Copper_Wire_Spool,
-            -- -- NPR.product_serial as Nest_Product_Serial,
-            count(*) AS COUNT,
-            opf.station_name as STATION_NAME,
-            NPR.station_name as Sttr_030_Hairpin_Origin
-            -- GH.product_serial as Stator_Assembly_Serial_Number,
-            -- opf.result_status as Sttr_040_Result_Status,
-            -- opf.recorded_at as Sttr_040_Recorded_At_Central_Time,
-            -- substring (WS.parameter_value_raw, position('C' in ws.parameter_value_raw) + 1, 8) as Copper_Wire_8_Digit
+            select distinct
+                -- SS.scanned_child_serial as Stack_Serial,
+                -- WS.parameter_value_raw as Copper_Wire_Spool,
+                -- -- NPR.product_serial as Nest_Product_Serial,
+                count(distinct GH.product_serial) AS COUNT,
+                opf.station_name as STATION_NAME,
+                NPR.station_name as Sttr_030_Hairpin_Origin
+                -- GH.product_serial as Stator_Assembly_Serial_Number
+                -- opf.result_status as Sttr_040_Result_Status,
+                -- opf.recorded_at as Sttr_040_Recorded_At_Central_Time,
+                -- substring (WS.parameter_value_raw, position('C' in ws.parameter_value_raw) + 1, 8) as Copper_Wire_8_Digit
 
-        from nest_parameter_records as NPR
+            from nest_parameter_records as NPR
 
-        join genealogy_hist as GH
-            on NPR.product_serial = GH.scanned_child_serial
-        join op_forty as opf
-            on GH.product_serial = opf.product_serial
-        join stack_serial as SS
-            ON GH.product_serial = SS.product_serial
-        left join wire_spool as WS
-            on NPR.product_serial = WS.product_serial
+            join genealogy_hist as GH
+                on NPR.product_serial = GH.scanned_child_serial
+            join op_forty as opf
+                on GH.product_serial = opf.product_serial
+            join stack_serial as SS
+                ON GH.product_serial = SS.product_serial
+            left join wire_spool as WS
+                on NPR.product_serial = WS.product_serial
 
-        WHERE
-            opf.station_name ILIKE '%40%'
-            and opf.overall_process_status = 'NOK'
-            and opf.recorded_at > '{recorded_at_summary}'
-            and opf.parameter_id = 2
-            AND opf.PARAMETER_NAME = 'Force process value'
-            group by all
+            WHERE
+                opf.station_name ILIKE '%40%'
+                and opf.overall_process_status = 'NOK'
+                and opf.recorded_at > '{recorded_at_summary}'
+                and opf.parameter_id = 2
+                AND opf.PARAMETER_NAME = 'Force process value'
+                group by all
         """
 
         ########################################################################################
